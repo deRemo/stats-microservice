@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+.idea/
+.vscode/
+.coverage
+.tox/
+storytellers_monolith.egg-info/
+storytellers.db
+celerybeat-schedule

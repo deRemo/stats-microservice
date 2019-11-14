@@ -1,0 +1,13 @@
+flask
+flask-login
+celery
+redis
+flask-wtf
+flask-sqlalchemy
+pip-tools
+flask_bootstrap
+requests
+blinker
+python-telegram-bot
+aiosmtpd
+git+https://github.com/jsenin/ptbtest@master
