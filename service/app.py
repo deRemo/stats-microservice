@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from celery import Celery
 from flask import Flask
 
@@ -42,9 +41,7 @@ def create_celery(app):
                 return TaskBase.__call__(self, *args, **kwargs)
 
     celery.Task = ContextTask
-
     return celery
-
 
 def build_blueprints(app, blueprints):
     for blueprint in blueprints:

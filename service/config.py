@@ -17,5 +17,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_DISABLE_RATE_LIMITS = True
 CELERY_ACCEPT_CONTENT = ['json']
 
+CELERY_TIMEZONE = 'Europe/London'
+
 # SQLAlchemy
 SQLALCHEMY_DATABASE_URI = 'sqlite:///stats.db'
