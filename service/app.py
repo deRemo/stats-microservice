@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from celery import Celery
 from flask import Flask
+import json
 
-from service.extensions import db, celery
+from service.extensions import db, celery, cache
 
 __all__ = ('create_app', 'create_celery')
 
@@ -25,6 +26,8 @@ def create_app(config=None, app_name='search', blueprints=None):
     db.init_app(app)
     celery.config_from_object(app.config)
 
+    cache.init_app(app, config={'CACHE_TYPE': app.config['CACHE_TYPE']})
+    
     return app
 
 

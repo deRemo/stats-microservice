@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+#Flask
 DEBUG = True
 SECRET_KEY = 'change me please'
 
@@ -19,5 +19,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 
 CELERY_TIMEZONE = 'Europe/London'
 
-# SQLAlchemy
+# Flask-SQLAlchemy
 SQLALCHEMY_DATABASE_URI = 'sqlite:///stats.db'
+
+# Flask-Caching
+CACHE_TYPE = 'redis'

@@ -1,7 +1,7 @@
 import json
 import pytest
 
-from gateway.app import create_app
+from service.app import create_app
 
 
 @pytest.fixture
