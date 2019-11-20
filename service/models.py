@@ -16,6 +16,6 @@ class Stats(db.Model):
 
     stories_written = db.Column(db.Integer)
 
-    avg_dice = db.Column(db.Float)
+    avg_ndice = db.Column(db.Float)
     stories_per_day = db.Column(db.Float)
-    active_user = db.Column(db.Boolean)
+    is_active = db.Column(db.Boolean)
