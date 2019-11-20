@@ -15,3 +15,7 @@ def get_story(id):
 @search.route('/signup', methods=['POST'])
 def signup():
     pass
+
+@search.route('/stats/<id>', methods=['GET'])
+def get_statistics_by_id(id):
+    pass

@@ -6,12 +6,16 @@ class Stats(db.Model):
     Models the statistics retrieved from the whole infrastructure
     '''
     __tablename__ = 'stats'
-    autor_id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, primary_key=True)
     
-    like_given = db.Column(db.Integer)
-    dislike_given = db.Column(db.Integer)
+    likes_given = db.Column(db.Integer)
+    dislikes_given = db.Column(db.Integer)
 
-    like_received = db.Column(db.Integer)
-    dislike_received = db.Column(db.Integer)
+    likes_received = db.Column(db.Integer)
+    dislikes_received = db.Column(db.Integer)
 
     stories_written = db.Column(db.Integer)
+
+    avg_ndice = db.Column(db.Float)
+    stories_per_day = db.Column(db.Float)
+    is_active = db.Column(db.Boolean)
