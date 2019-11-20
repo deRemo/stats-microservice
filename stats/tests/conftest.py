@@ -1,8 +1,8 @@
 import json
 import pytest
 
-from service.app import create_app
-from service.update_stats import init_stories_stats
+from stats.app import create_app
+from stats.update_stats import init_stories_stats
 
 
 @pytest.fixture

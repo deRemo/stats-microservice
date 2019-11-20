@@ -3,7 +3,7 @@ from celery import Celery
 from flask import Flask
 import json
 
-from service.extensions import db, celery, cache
+from stats.extensions import db, celery, cache
 
 __all__ = ('create_app', 'create_celery')
 

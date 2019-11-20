@@ -3,7 +3,10 @@ __pycache__/
 .idea/
 .vscode/
 .coverage
-.tox/
+.tox/7
+stats/.vim
+service.egg-info
 storytellers_monolith.egg-info/
 storytellers.db
 celerybeat-schedule
+celerybeat.pid

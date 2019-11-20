@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import requests
-from service import create_app, create_celery
+from stats import create_app, create_celery
 
-app = create_app(config='./service/config.py')
+app = create_app(config='./stats/config.py')
 celery = create_celery(app)
 
 POLLING_RATE = 2.0

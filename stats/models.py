@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from service.extensions import db
+from stats.extensions import db
 
 class Stats(db.Model):
     '''

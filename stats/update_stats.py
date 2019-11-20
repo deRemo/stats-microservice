@@ -1,4 +1,4 @@
-#from service.models import Stats
+#from stats.models import Stats
 from json import loads, dumps
 from collections import defaultdict
 import datetime as dt
