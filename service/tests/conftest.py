@@ -2,6 +2,7 @@ import json
 import pytest
 
 from service.app import create_app
+from service.update_stats import init_stories_stats
 
 
 @pytest.fixture
@@ -58,3 +59,22 @@ def auth():
             return self.client.post('/logout')
 
     return AuthActions()
+
+
+class StatsActions:
+    '''
+    Class for stats management in the testing environment.
+    '''
+
+    def __init__(self, client):
+        self._client = client
+
+    def init_stories_stats(self, stories):
+        return init_stories_stats(stories)
+
+
+def update_stats(client):
+    '''
+    Provide stats functionalities
+    '''
+    return StatsActions(client)

@@ -15,3 +15,7 @@ class Stats(db.Model):
     dislikes_received = db.Column(db.Integer)
 
     stories_written = db.Column(db.Integer)
+
+    avg_dice = db.Column(db.Float)
+    stories_per_day = db.Column(db.Float)
+    active_user = db.Column(db.Boolean)
