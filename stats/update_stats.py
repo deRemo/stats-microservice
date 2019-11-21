@@ -1,7 +1,9 @@
-#from stats.models import Stats
+from stats.models import Stats
 from json import loads, dumps
 from collections import defaultdict
+from stats.extensions import db
 import datetime as dt
+from stats import errors
 
 
 def init_stories_stats(stories):
@@ -52,8 +54,59 @@ def init_stories_stats(stories):
 
     return stats
 
-def update_reactions_stats():
-    # TODO: Before the update, check presence of a new user
+def update_stories_stats(stories):
+    # It receives a list of the last stories
+    list_stories = loads(stories)
+    for story in list_stories:
+        stat = Stats.query.filter_by(story["author_id"])
+        if stat:
+            # User has alredy statistics
+            try:
+                stat.stories_written += 1
+                # Compute the average incrementally
+                stat.avg_ndice += (len(story["dice_set"])-stat.avg_ndice)/(stat.stories_written)
+                stat.stories_per_day = (1+stat.stories_per_day)/((stat.last_activity-stat.last_activity).days+1)
+                stat.last_activity = dt.datetime.now()
+                stat.is_active = True
+                db.session.add(stat)
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return errors.response('411')
+    # TODO: When a user is registered the stats should be initialized
+    return
 
+def update_reactions_received_stats(reactions, author_id):
+    # TODO: need the author of the story!
+    # Given the list of reactions for a story
+    list_reactions = loads(reactions)
+    for reaction in list_reactions:
+        stat = Stats.query.filter_by(author_id)
+        if stat:
+            try:
+                stat.likes_received += reaction["likes"]
+                stat.dislikes_received += reaction["dislikes"]
+                db.session.add(stat)
+                d.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return errors.response('411')
+    return
+
+def update_reactions_given_stats(reactions, user_id):
+    # Given the list of reactions given by an author
+    list_reactions = loads(reactions)
+    for reaction in list_reactions:
+        stat = Stats.query.filter_by(user_id)
+        if stat:
+            try:
+                stat.likes_given += reaction["likes"]
+                stat.dislikes_given += reaction["dislikes"]
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return errors.response('411')
     return
 

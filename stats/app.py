@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from celery import Celery
 from flask import Flask
+from . import search
 import json
 
 from stats.extensions import db, celery, cache
@@ -8,12 +9,11 @@ from stats.extensions import db, celery, cache
 __all__ = ('create_app', 'create_celery')
 
 # Import blueprints and insert in the list
-BLUEPRINTS = ()
+BLUEPRINTS = (search)
 
 
 def create_app(config=None, app_name='search', blueprints=None):
     app = Flask(app_name)
-
 
     if config:
         app.config.from_pyfile(config)
