@@ -1,6 +1,6 @@
 import json
 import pytest
-
+from flask import jsonify
 import flask_jwt_extended as jwt
 
 from stats.app import create_app
@@ -55,38 +55,7 @@ def database(app):
         db.session.commit()
 
 @pytest.fixture(scope='class')
-def auth():
-
-    class AuthActions:
-
-        def __init__(self):
-            self.client = None
-
-        def signup(self, data):
-            assert self.client is not None
-            return self.client.post('/signup',
-                                    data=json.dumps(data),
-                                    content_type='application/json')
-
-        def login(self, data):
-            assert self.client is not None
-            return self.client.post('/login',
-                                    data=json.dumps(data),
-                                    content_type='application/json')
-
-        def logout(self, login_token=None):
-            assert self.client is not None
-            if login_token is not None:
-                return self.client.post('/logout',
-                                        headers={'Set-Cookie': login_token})
-            return self.client.post('/logout')
-
-    return AuthActions()
-
-
-@pytest.fixture
-def statistics():
-
+def stats():
     class StatisticsActions:
 
         def __init__(self):
@@ -94,8 +63,7 @@ def statistics():
 
         def get_statistics_by_id(self, userid):
             assert self.client is not None
-            print("Hiiiiiii")
-            print(userid)
+
             return self.client.get(f'/stats/{userid}')
             
     return StatisticsActions()
