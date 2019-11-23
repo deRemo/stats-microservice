@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from celery import Celery
 from flask import Flask
-from . import search
+import stats
 import json
 
 from stats.extensions import db, celery, cache
+from stats.api.search import search
 
 __all__ = ('create_app', 'create_celery')
 
@@ -12,7 +13,7 @@ __all__ = ('create_app', 'create_celery')
 BLUEPRINTS = (search)
 
 
-def create_app(config=None, app_name='search', blueprints=None):
+def create_app(config='config.py', app_name='search', blueprints=None):
     app = Flask(app_name)
 
     if config:
@@ -47,5 +48,8 @@ def create_celery(app):
     return celery
 
 def build_blueprints(app, blueprints):
-    for blueprint in blueprints:
-        app.register_blueprint(blueprint)
+    if type(blueprints) != list:
+        app.register_blueprint(blueprints)
+    else:
+        for blueprint in blueprints:
+            app.register_blueprint(blueprint)

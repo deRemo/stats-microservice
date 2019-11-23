@@ -17,3 +17,11 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_DISABLE_RATE_LIMITS = True
 CELERY_ACCEPT_CONTENT = ['json']
+
+CELERY_TIMEZONE = 'Europe/London'
+
+# Flask-SQLAlchemy
+SQLALCHEMY_DATABASE_URI = 'sqlite:///stats.db'
+
+# Flask-Caching
+CACHE_TYPE = 'redis'

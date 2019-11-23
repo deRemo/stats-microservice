@@ -88,7 +88,7 @@ def update_reactions_received_stats(reactions, author_id):
                 stat.likes_received += reaction["likes"]
                 stat.dislikes_received += reaction["dislikes"]
                 db.session.add(stat)
-                d.session.commit()
+                db.session.commit()
             except Exception as e:
                 print(e)
                 db.session.rollback()
