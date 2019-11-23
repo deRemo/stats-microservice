@@ -5,12 +5,12 @@ import flask_jwt_extended as jwt
 
 from stats.app import create_app
 from stats.extensions import db
-from stats.api import search
+from stats.api import stats
 
 
 @pytest.fixture
 def app():
-    app = create_app(config='stats/tests/config_test.py', blueprints=search)
+    app = create_app(config='tests/config_test.py')
 
     return app
 

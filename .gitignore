@@ -10,3 +10,4 @@ storytellers_monolith.egg-info/
 storytellers.db
 celerybeat-schedule
 celerybeat.pid
+test_stats.db

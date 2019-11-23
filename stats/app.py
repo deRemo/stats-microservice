@@ -11,7 +11,7 @@ from stats.api.stats import stats
 __all__ = ('create_app', 'create_celery')
 
 # Import blueprints and insert in the list
-BLUEPRINTS = (stats)
+BLUEPRINTS = (stats,)
 
 
 def create_app(config='config.py', app_name='stats', blueprints=None):
@@ -50,8 +50,5 @@ def create_celery(app):
     return celery
 
 def build_blueprints(app, blueprints):
-    if type(blueprints) != list:
-        app.register_blueprint(blueprints)
-    else:
-        for blueprint in blueprints:
-            app.register_blueprint(blueprint)
+    for blueprint in blueprints:
+        app.register_blueprint(blueprint)

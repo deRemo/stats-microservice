@@ -14,8 +14,7 @@ def get_statistics_by_id(id):
     '''
     stat = Stats.query.filter_by(author_id=id)
     print(stat)
-    #stats = _retrieve_stats(stat)   
-
+    #stats = _retrieve_stats(stat)
     
     return jsonify(stat)
 
