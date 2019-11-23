@@ -12,28 +12,9 @@ def get_statistics_by_id(id):
         200 -> User statistics retrieved successfully
         400 -> User not found
     '''
-
-    try:
-        example = Stats()
-        example.author_id = 1
-        example.likes_given = 2
-        example.dislikes_given = 0
-        example.likes_received = 5
-        example.dislikes_received = 3
-        example.stories_written = 15
-        example.avg_ndice = 4.50
-        example.stories_per_day = 2
-        #example.date_of_entry = str(dt.datetime.now())
-        #example.last_activity = str(dt.datetime.now())
-        example.is_active = True
-        db.session.add(example)
-        db.session.commit()
-    except:
-        db.session.rollback()
-
     stat = Stats.query.filter_by(author_id=id)
     print(stat)
-    stats = _retrieve_stats(stat)   
+    #stats = _retrieve_stats(stat)   
 
     
     return jsonify(stat)
