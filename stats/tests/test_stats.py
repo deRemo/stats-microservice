@@ -34,7 +34,6 @@ def init_database(database):
         #example.date_of_entry = str(dt.datetime.now())
         #example.last_activity = str(dt.datetime.now())
         example.is_active = True
-        
         database.session.add(example)
         database.session.commit()
     except IntegrityError as _:
