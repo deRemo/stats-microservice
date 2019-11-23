@@ -18,4 +18,6 @@ class Stats(db.Model):
 
     avg_ndice = db.Column(db.Float)
     stories_per_day = db.Column(db.Float)
+    date_of_entry = db.Column(db.DateTime)
+    last_activity = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean)

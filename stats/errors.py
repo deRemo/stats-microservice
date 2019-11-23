@@ -39,6 +39,9 @@ EP_DICT = {
     '143': (401, 'You must provide an authentication token'),
     '144': (401, 'You must provide a valid authentication token'),
     '145': (409, 'You are not following the requested user'),
+
+    # Stats errors
+    '411': (400, 'Error while saving statistics on the database'),
 }
 
 
