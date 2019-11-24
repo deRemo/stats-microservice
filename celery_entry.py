@@ -17,7 +17,7 @@ def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(POLLING_RATE, poll_inconsistent.s(), name='story-microservice')
 
     #gather from story microservice
-    sender.add_periodic_task(POLLING_RATE, poll_refresh.s(), name='story-microservice')
+    sender.add_periodic_task(2000*POLLING_RATE, poll_refresh.s(), name='story-microservice')
 
 
 @celery.task
