@@ -1,6 +1,6 @@
 from stats.app import create_app
 
-app = create_app(config='config.py')
+app = create_app(config='stats/config.py')
 
 
 if __name__ == '__main__':
