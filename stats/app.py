@@ -27,6 +27,7 @@ def create_app(config='config.py', app_name='stats', blueprints=None):
     create_celery(app)
     build_blueprints(app, blueprints)
     db.init_app(app)
+    db.create_all(app=app)
     celery.config_from_object(app.config)
 
     cache.init_app(app, config={'CACHE_TYPE': app.config['CACHE_TYPE']})
