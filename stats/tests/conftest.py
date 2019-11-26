@@ -28,6 +28,7 @@ def client_factory(app):
 
     return ClientFactory(app)
 
+
 def _init_database(db):
     '''
     Initializes the database for testing.
@@ -35,9 +36,11 @@ def _init_database(db):
     '''
     pass
 
+
 @pytest.fixture
 def client(app, client_factory):
     return client_factory.get()
+
 
 @pytest.fixture
 def database(app):
