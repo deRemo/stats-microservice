@@ -7,15 +7,21 @@ class Stats(db.Model):
     '''
     __tablename__ = 'stats'
     author_id = db.Column(db.Integer, primary_key=True)
+
+    likes = db.Column(db.Integer, default=0, nullable=False)
+    dislikes = db.Column(db.Integer, default=0, nullable=False)
+
+    stories_written = db.Column(db.Integer, default=0, nullable=False)
+
+    n_dice = db.Column(db.Integer, default=0, nullable=False)
+
+    def __init__(self, *args, **kw):
+        super().__init__(*args, **kw)
     
-    likes_given = db.Column(db.Integer)
-    dislikes_given = db.Column(db.Integer)
-
-    likes_received = db.Column(db.Integer)
-    dislikes_received = db.Column(db.Integer)
-
-    stories_written = db.Column(db.Integer)
-
-    avg_ndice = db.Column(db.Float)
-    stories_per_day = db.Column(db.Float)
-    is_active = db.Column(db.Boolean)
+    def get_stats(self):
+        return {
+            'likes': self.likes,
+            'dislikes': self.dislikes,
+            'n_stories': self.stories_written,
+            'avg_dice': self.n_dice/self.stories_written
+        }

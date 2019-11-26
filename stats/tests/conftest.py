@@ -1,8 +1,11 @@
 import json
 import pytest
+from flask import jsonify
+import flask_jwt_extended as jwt
 
 from stats.app import create_app
-from stats.update_stats import init_stories_stats
+from stats.extensions import db
+from stats.api import stats
 
 
 @pytest.fixture
@@ -26,55 +29,77 @@ def client_factory(app):
     return ClientFactory(app)
 
 
+def _init_database(db):
+    '''
+    Initializes the database for testing.
+    It will be overwritten in the test file
+    '''
+    pass
+
+
 @pytest.fixture
 def client(app, client_factory):
     return client_factory.get()
 
 
 @pytest.fixture
-def auth():
+def database(app):
+    '''
+    Provides a reference to the temporary database in the app context. Use
+    this instance instead of importing db from monolith.db.
+    '''
+    with app.app_context():
+        db.create_all()
 
-    class AuthActions:
+        _init_database(db)
+        yield db
+
+        db.drop_all()
+        db.session.commit()
+
+@pytest.fixture(scope='class')
+def statistics():
+    class StatisticsActions:
 
         def __init__(self):
             self.client = None
 
-        def signup(self, data):
+        def get(self, userid):
             assert self.client is not None
-            return self.client.post('/signup',
-                                    data=json.dumps(data),
-                                    content_type='application/json')
 
-        def login(self, data):
-            assert self.client is not None
-            return self.client.post('/login',
-                                    data=json.dumps(data),
-                                    content_type='application/json')
+            return self.client.get(f'/stats/{userid}')
+            
+    return StatisticsActions()
 
-        def logout(self, login_token=None):
-            assert self.client is not None
-            if login_token is not None:
-                return self.client.post('/logout',
-                                        headers={'Set-Cookie': login_token})
-            return self.client.post('/logout')
+@pytest.fixture('class')
+def jwt_token(app):
 
-    return AuthActions()
+    class JWTActions():
 
+        def create_token(self, identity, refresh=False, max_age=None):
+            with app.app_context():
+                if refresh:
+                    return jwt.create_refresh_token(identity,
+                                                    expires_delta=max_age)
+                return jwt.create_access_token(identity,
+                                               expires_delta=max_age)
 
-class StatsActions:
-    '''
-    Class for stats management in the testing environment.
-    '''
+        def set_token(self, response, token, refresh=False):
+            with app.app_context():
+                if refresh:
+                    jwt.set_refresh_cookies(response, token)
+                else:
+                    jwt.set_access_cookies(response, token)
 
-    def __init__(self, client):
-        self._client = client
+        def token_headers(self, identity, refresh=False, max_age=None):
+            with app.app_context():
+                token = self.create_token(identity, max_age=max_age)
+                res = jsonify({})
+                self.set_token(res, token)
+                if refresh:
+                    token = self.create_token(
+                        identity, refresh=True, max_age=max_age)
+                    self.set_token(res, token, refresh=True)
+                return res.headers['Set-Cookie']
 
-    def init_stories_stats(self, stories):
-        return init_stories_stats(stories)
-
-
-def update_stats(client):
-    '''
-    Provide stats functionalities
-    '''
-    return StatsActions(client)
+    return JWTActions()
