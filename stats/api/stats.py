@@ -19,7 +19,7 @@ def get_statistics_by_id(user_id, func_id=0):
     '''
     stat = Stats.query.get(int(user_id))
     
-    if stats is None:
+    if stat is None:
         return errors.response(f'{BP_ID}{func_id}1')
 
     return jsonify(stat.get_stats()), 200

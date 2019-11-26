@@ -19,6 +19,13 @@ def init_database(database):
     
 
 class TestStats:
+    def test_no_stats(self, app, client, statistics, database):
+        statistics.client = client
+        reply = statistics.get(1)
+
+        assert reply.status_code == 404
+        assert reply.json['code'] == 'ESS001'
+
     def test_stats(self, app, client, statistics, init_database):
         statistics.client = client
         reply = statistics.get(1)
