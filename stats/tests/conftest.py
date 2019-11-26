@@ -55,13 +55,13 @@ def database(app):
         db.session.commit()
 
 @pytest.fixture(scope='class')
-def stats():
+def statistics():
     class StatisticsActions:
 
         def __init__(self):
             self.client = None
 
-        def get_statistics_by_id(self, userid):
+        def get(self, userid):
             assert self.client is not None
 
             return self.client.get(f'/stats/{userid}')

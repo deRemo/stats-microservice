@@ -13,7 +13,7 @@ class Stats(db.Model):
 
     stories_written = db.Column(db.Integer)
 
-    n_dice = db.Column(db.Float)
+    n_dice = db.Column(db.Integer)
 
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)

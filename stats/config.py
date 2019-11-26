@@ -21,6 +21,15 @@ CELERY_ACCEPT_CONTENT = ['json']
 
 CELERY_TIMEZONE = 'Europe/London'
 
+# JWT
+SECRET_KEY = 'some-secret-string-CHANGE-ME'
+JWT_SECRET_KEY = 'jwt-secret-string-CHANGE-ME'
+JWT_TOKEN_LOCATION = ['cookies']
+JWT_ACCESS_COOKIE_PATH = '/'
+JWT_REFRESH_COOKIE_PATH = '/auth/token_refresh'
+JWT_COOKIE_CSRF_PROTECT = False
+JWT_COOKIE_SECURE = False  # True for only https
+
 # Flask-SQLAlchemy
 SQLALCHEMY_DATABASE_URI = 'sqlite:///stats.db'
 
