@@ -9,10 +9,10 @@ POLLING_RATE = 2.0
 @celery.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     #gather from story microservice
-    sender.add_periodic_task(POLLING_RATE, poll_inconsistent.s(), name='story-microservice')
+    sender.add_periodic_task(POLLING_RATE, poll_inconsistent.s(), name='poll-inconsistent')
 
     #gather from story microservice
-    sender.add_periodic_task(2000*POLLING_RATE, poll_refresh.s(), name='story-microservice')
+    sender.add_periodic_task(2000*POLLING_RATE, poll_refresh.s(), name='refresh')
 
 
 app = create_app(config='config.py')
