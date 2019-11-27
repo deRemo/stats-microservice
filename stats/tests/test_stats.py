@@ -16,7 +16,7 @@ def init_database(database):
     database.session.add(example)
 
     database.session.commit()
-    
+
 
 class TestStats:
     def test_no_stats(self, app, client, statistics, database):
