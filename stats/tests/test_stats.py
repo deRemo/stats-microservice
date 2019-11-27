@@ -2,7 +2,7 @@ import datetime as dt
 import pytest
 from stats.models import Stats
 from sqlalchemy.exc import IntegrityError
-from celery_entry import poll_inconsistent, poll_refresh
+from stats.tasks import poll_inconsistent
 
 
 @pytest.fixture
@@ -16,7 +16,7 @@ def init_database(database):
     database.session.add(example)
 
     database.session.commit()
-    
+
 
 class TestStats:
     def test_stats(self, app, client, statistics, init_database):
@@ -24,7 +24,7 @@ class TestStats:
         reply = statistics.get_statistics_by_id(1)
 
         assert reply.status_code == 200
-    
+
 class TestPolling:
 
     def test_poll_inconsistent(self, app, client, init_database, requests_mock):
