@@ -8,5 +8,5 @@ pytest-cov==2.8.1
 Flask-Caching==1.7.2
 Flask-SQLAlchemy
 flask_jwt_extended
-gunicorn==22.0.0
+gunicorn==23.0.0
 
